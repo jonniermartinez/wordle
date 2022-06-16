@@ -95,18 +95,25 @@ const checkedWords = () => {
  //   console.log(`colors1${colors1}`)
 }
 const finalDesition = () => {
+    // checar cunado gane frenar el juego
+    
     if (word1.length < 5){
         saveWord1();
         addWord(); 
-    }else if (word1.length == 5){
+    }else if (word2.length < 5 && word1.length == 5){
       saveWord2();
       addWord(); 
-    }else if (word2.length == 5 && word1.length == 5){
+    }else if (word3.length < 5 && word2.length == 5){
         saveWord3();
         addWord(); 
-      }
+    }else if (word4.length < 5 && word3.length == 5){
+        saveWord4();
+        addWord();
+    }else if (word5.length < 5 && word4.length == 5){
+        saveWord5();
+        addWord();
+    }
 }
-
 const saveWord1 = () => {
     // Guarda la palabra en el nuevo array y limpia el original 
     word1 = [...letter];
@@ -118,6 +125,7 @@ const saveWord1 = () => {
     row1tile3.classList.add(`${colors1[2]}`)
     row1tile4.classList.add(`${colors1[3]}`)
     row1tile5.classList.add(`${colors1[4]}`)
+    // https://kervin.blog/convertir-un-array-a-string-en-javascript
 }
 const saveWord2 = () => {
     // Guarda la palabra en el nuevo array y limpia el original 
@@ -143,10 +151,30 @@ const saveWord3 = () => {
     row3tile4.classList.add(`${colors3[3]}`)
     row3tile5.classList.add(`${colors3[4]}`)
 }
-
-
-
-
+const saveWord4 = () => {
+    // Guarda la palabra en el nuevo array y limpia el original 
+    word4 = [...letter];
+    colors4 = [...positions];
+    letter.splice(0, letter.length);
+    positions.splice(0, positions.length);
+    row4tile1.classList.add(`${colors4[0]}`)
+    row4tile2.classList.add(`${colors4[1]}`)
+    row4tile3.classList.add(`${colors4[2]}`)
+    row4tile4.classList.add(`${colors4[3]}`)
+    row4tile5.classList.add(`${colors4[4]}`)
+}
+const saveWord5 = () => {
+    // Guarda la palabra en el nuevo array y limpia el original 
+    word5 = [...letter];
+    colors5 = [...positions];
+    letter.splice(0, letter.length);
+    positions.splice(0, positions.length);
+    row5tile1.classList.add(`${colors5[0]}`)
+    row5tile2.classList.add(`${colors5[1]}`)
+    row5tile3.classList.add(`${colors5[2]}`)
+    row5tile4.classList.add(`${colors5[3]}`)
+    row5tile5.classList.add(`${colors5[4]}`)
+}
 const addColors = (i) =>{
     if (colors1.length < 5){
         colors1.push(positions[i])
@@ -160,72 +188,81 @@ const addColors = (i) =>{
         colors5.push(positions[i])
     }
 }
-
-
 const addLetters = () =>{
     // si word1 == 5 y por lo menos hay un amarillo o un gris seguir escribiendo en la proxima row
     /* if (word1 == 5 && colors1.some("hay un gris o un amarillo")){
         
     }*/
-    switch (true) {
-        case word1.length == 0:
-            row1tile1.textContent = letter[0]; 
-            row1tile2.textContent = letter[1]; 
-            row1tile3.textContent = letter[2]; 
-            row1tile4.textContent = letter[3]; 
-            row1tile5.textContent = letter[4]; 
-            break;
-        case word1.length == 5:
-            row2tile1.textContent = letter[0]; 
-            row2tile2.textContent = letter[1]; 
-            row2tile3.textContent = letter[2]; 
-            row2tile4.textContent = letter[3]; 
-            row2tile5.textContent = letter[4]; 
-            
-            break;
-        case word2.length == 5:
-            row3tile1.textContent = letter[0]; 
-            row3tile2.textContent = letter[1]; 
-            row3tile3.textContent = letter[2]; 
-            row3tile4.textContent = letter[3]; 
-            row3tile5.textContent = letter[4]; 
-        default:
-            break;
-    }
+// QUiero que empiece añadiendo las etras en la primera columna 
+// SI la primera colomna esta llena me los meta en la segunda
+// Si la primera y la segunda estan llenas los meta en la terera 
+
+if (word1.length < 5 ){
+    row1tile1.textContent = letter[0]; 
+    row1tile2.textContent = letter[1]; 
+    row1tile3.textContent = letter[2]; 
+    row1tile4.textContent = letter[3]; 
+    row1tile5.textContent = letter[4]; 
+}else if (word2.length < 5 && word1.length == 5){
+    row2tile1.textContent = letter[0]; 
+    row2tile2.textContent = letter[1]; 
+    row2tile3.textContent = letter[2]; 
+    row2tile4.textContent = letter[3]; 
+    row2tile5.textContent = letter[4]; 
+    console.log("segunda condicion")
+}else if (word3.length < 5 && word2.length == 5){
+    row3tile1.textContent = letter[0]; 
+    row3tile2.textContent = letter[1]; 
+    row3tile3.textContent = letter[2]; 
+    row3tile4.textContent = letter[3]; 
+    row3tile5.textContent = letter[4]; 
+    console.log("SI existo")
+}else if (word4.length < 5 && word3.length == 5){
+    row4tile1.textContent = letter[0]; 
+    row4tile2.textContent = letter[1]; 
+    row4tile3.textContent = letter[2]; 
+    row4tile4.textContent = letter[3]; 
+    row4tile5.textContent = letter[4]; 
+}else if (word5.length < 5 && word4.length == 5){
+    row5tile1.textContent = letter[0]; 
+    row5tile2.textContent = letter[1]; 
+    row5tile3.textContent = letter[2]; 
+    row5tile4.textContent = letter[3]; 
+    row5tile5.textContent = letter[4]; 
+}
 }
 // Add words
 const addWord = () => {
-    if (word1.length > 5){
+
         row1tile1.textContent = word1[0]; 
         row1tile2.textContent = word1[1]; 
         row1tile3.textContent = word1[2]; 
         row1tile4.textContent = word1[3]; 
         row1tile5.textContent = word1[4]; 
-    }else if (word1.length == 5){
+
         row2tile1.textContent = word2[0]; 
         row2tile2.textContent = word2[1]; 
         row2tile3.textContent = word2[2]; 
         row2tile4.textContent = word2[3]; 
         row2tile5.textContent = word2[4]; 
-    }else if (word2.length == 5){
+
         row3tile1.textContent = word3[0]; 
         row3tile2.textContent = word3[1]; 
         row3tile3.textContent = word3[2]; 
         row3tile4.textContent = word3[3]; 
         row3tile5.textContent = word3[4]; 
-    }else if (word3.length == 5){
+
         row4tile1.textContent = word4[0]; 
         row4tile2.textContent = word4[1]; 
         row4tile3.textContent = word4[2]; 
         row4tile4.textContent = word4[3]; 
         row4tile5.textContent = word4[4]; 
-    }else if (word4.length == 5){
+
         row5tile1.textContent = word5[0]; 
         row5tile2.textContent = word5[1]; 
         row5tile3.textContent = word5[2]; 
         row5tile4.textContent = word5[3]; 
         row5tile5.textContent = word5[4]; 
-    }
 
 }
 

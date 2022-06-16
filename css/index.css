@@ -60,6 +60,8 @@ body{
     justify-content: center;
     font-size: 28px;
     font-weight: 700;
+    max-width: 6.6rem;
+    max-height: 6.6rem;
 }
 .green{
     background: #57ac57;
