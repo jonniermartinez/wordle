@@ -2,6 +2,52 @@ const Word = "mundo";
 const secretWord = Word.split('');
 const letter = [];
 const positions = [];
+const keyBoardLetter =   [
+["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+["a", "s", "d", "f", "g", "h", "delete","j", "k", "l"],
+["z","enter", "x", "c", "v", "b", "n", "m"],
+];
+const virtualBoard = document.querySelector(".keyboard")
+
+
+
+keyBoardLetter.map((letters) => {
+    letters.map((l) => {
+        const p = document.createElement("p");
+        p.classList.add("keyBoardLetter")
+        const Text = document.createTextNode(l)
+        p.appendChild(Text)
+     //   p.setAttribute("onclick","addLetterFromScreen()")
+        virtualBoard.appendChild(p)    
+        p.addEventListener(("click"), () =>{
+      //      letter.push(p.textContent)
+
+            switch (p.textContent) {
+                case "enter":
+                    if (letter.length === 5){
+                      checkedWords();
+                      finalDesition();
+                        // Dependiendo donde este escribiendo asi mismo guarda el contenido en la variable indicada 
+                    }else{
+                        console.log("Te hacen falta letras")
+                    }
+                    break;
+                case "delete":
+                    letter.pop()
+                    addLetters();
+                    break;
+                default:
+                if (letter.length < 5){
+                    letter.push(p.textContent)
+                    addLetters();
+                }
+                 break;
+            }
+
+        })
+        
+});
+
 
 let word1 = [];
 let word2 = [];
@@ -96,10 +142,10 @@ const checkedWords = () => {
 }
 const finalDesition = () => {
     // checar cunado gane frenar el juego
-    
     if (word1.length < 5){
         saveWord1();
         addWord(); 
+        endOfTheGame(word1);
     }else if (word2.length < 5 && word1.length == 5){
       saveWord2();
       addWord(); 
@@ -188,6 +234,8 @@ const addColors = (i) =>{
         colors5.push(positions[i])
     }
 }
+
+
 const addLetters = () =>{
     // si word1 == 5 y por lo menos hay un amarillo o un gris seguir escribiendo en la proxima row
     /* if (word1 == 5 && colors1.some("hay un gris o un amarillo")){
@@ -209,14 +257,12 @@ if (word1.length < 5 ){
     row2tile3.textContent = letter[2]; 
     row2tile4.textContent = letter[3]; 
     row2tile5.textContent = letter[4]; 
-    console.log("segunda condicion")
 }else if (word3.length < 5 && word2.length == 5){
     row3tile1.textContent = letter[0]; 
     row3tile2.textContent = letter[1]; 
     row3tile3.textContent = letter[2]; 
     row3tile4.textContent = letter[3]; 
     row3tile5.textContent = letter[4]; 
-    console.log("SI existo")
 }else if (word4.length < 5 && word3.length == 5){
     row4tile1.textContent = letter[0]; 
     row4tile2.textContent = letter[1]; 
@@ -231,39 +277,44 @@ if (word1.length < 5 ){
     row5tile5.textContent = letter[4]; 
 }
 }
+// end of the game win or fail
+const endOfTheGame = (word) => {
+    // cuando positions este en todo verde mostrar un resumen de que finaliza el juego
+    if (word.join("") == Word){
+        console.log("Ganaste");
+        // mostrar una alerta con el resumen 
+        // vaciar las variables tanto de words como de colors
+    }
+
+}
+
 // Add words
 const addWord = () => {
-
         row1tile1.textContent = word1[0]; 
         row1tile2.textContent = word1[1]; 
         row1tile3.textContent = word1[2]; 
         row1tile4.textContent = word1[3]; 
         row1tile5.textContent = word1[4]; 
-
         row2tile1.textContent = word2[0]; 
         row2tile2.textContent = word2[1]; 
         row2tile3.textContent = word2[2]; 
         row2tile4.textContent = word2[3]; 
         row2tile5.textContent = word2[4]; 
-
         row3tile1.textContent = word3[0]; 
         row3tile2.textContent = word3[1]; 
         row3tile3.textContent = word3[2]; 
         row3tile4.textContent = word3[3]; 
         row3tile5.textContent = word3[4]; 
-
         row4tile1.textContent = word4[0]; 
         row4tile2.textContent = word4[1]; 
         row4tile3.textContent = word4[2]; 
         row4tile4.textContent = word4[3]; 
         row4tile5.textContent = word4[4]; 
-
         row5tile1.textContent = word5[0]; 
         row5tile2.textContent = word5[1]; 
         row5tile3.textContent = word5[2]; 
         row5tile4.textContent = word5[3]; 
         row5tile5.textContent = word5[4]; 
-
 }
 
 const deleteColor = () => {
@@ -277,3 +328,4 @@ document.addEventListener("keydown", function(event) {
     // console.log(event)
      lestPlay()
  });
+});

@@ -72,3 +72,20 @@ body{
 .gray{
     background: #09090e;
 }
+.keyboard{
+    display: flex;
+    gap: .6rem;
+    max-width: 280px;
+    flex-wrap: wrap;
+    margin: 2rem auto;
+    justify-content: center;
+}
+.keyBoardLetter{
+    font-size: 1.5rem;
+    background: #414458;
+    padding: 1rem;
+    cursor: pointer;
+}
+.keyBoardLetter:hover{
+    background: #2b2d36;
+}
