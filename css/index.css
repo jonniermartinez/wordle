@@ -10,6 +10,8 @@ html{
     font-size: 62.5%;
 }
 body{
+    width: 100vw;
+    height: 100vh;
     background: var(--primary-color);
     color: #fff;
     display: flex;
@@ -75,17 +77,80 @@ body{
 .keyboard{
     display: flex;
     gap: .6rem;
-    max-width: 280px;
+    max-width: 400px;
     flex-wrap: wrap;
     margin: 2rem auto;
     justify-content: center;
 }
 .keyBoardLetter{
-    font-size: 1.5rem;
-    background: #414458;
+    font-size: 2rem;
+    background: #3a3b41;
     padding: 1rem;
     cursor: pointer;
 }
 .keyBoardLetter:hover{
     background: #2b2d36;
+}
+.footer {
+    width: 98%;
+    position: absolute;
+    bottom: 1rem;
+    text-align: center;
+    font-size: 1.3rem;
+}
+.footer a{
+    color: rgb(189, 189, 189);
+    text-decoration: none;
+}
+a:hover{
+    color: rgb(119, 119, 119);
+}
+.alerts{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #e4151500;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.alerts div{
+    width: 95%;
+    height: 90%;
+    max-height: 564px;
+    max-width: 400px;
+    background:#10101a;
+}
+.alerts h2{
+    text-align: center;
+    margin-top: 8rem;
+    font-size: 3rem;
+}
+.EndOftheGame{
+    display: flex;
+    flex-direction: column;
+}
+.alerts p{
+    width: 30rem;
+    text-align: center;
+   padding: 2rem;
+   background: #57ac57;
+   margin-top: 8rem;
+   cursor: pointer;
+   font-size: 1.8rem;
+   align-self: center;
+}
+
+.alerts svg {
+    width: 2rem;
+    position: relative;
+    top: 1rem;
+    left: 90%;
+    cursor: pointer;
+}
+.none{
+    display: none;
 }

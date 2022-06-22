@@ -4,49 +4,11 @@ const letter = [];
 const positions = [];
 const keyBoardLetter =   [
 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-["a", "s", "d", "f", "g", "h", "delete","j", "k", "l"],
-["z","enter", "x", "c", "v", "b", "n", "m"],
+["a", "s", "d", "f", "g", "h","j", "k","z", "x", "Enter", "l"],
+["c", "v", "b", "n", "m","Delete"],
 ];
 const virtualBoard = document.querySelector(".keyboard")
-
-
-
-keyBoardLetter.map((letters) => {
-    letters.map((l) => {
-        const p = document.createElement("p");
-        p.classList.add("keyBoardLetter")
-        const Text = document.createTextNode(l)
-        p.appendChild(Text)
-     //   p.setAttribute("onclick","addLetterFromScreen()")
-        virtualBoard.appendChild(p)    
-        p.addEventListener(("click"), () =>{
-      //      letter.push(p.textContent)
-
-            switch (p.textContent) {
-                case "enter":
-                    if (letter.length === 5){
-                      checkedWords();
-                      finalDesition();
-                        // Dependiendo donde este escribiendo asi mismo guarda el contenido en la variable indicada 
-                    }else{
-                        console.log("Te hacen falta letras")
-                    }
-                    break;
-                case "delete":
-                    letter.pop()
-                    addLetters();
-                    break;
-                default:
-                if (letter.length < 5){
-                    letter.push(p.textContent)
-                    addLetters();
-                }
-                 break;
-            }
-
-        })
-        
-});
+const alerta = document.querySelector(".EndOftheGame")
 
 
 let word1 = [];
@@ -94,29 +56,6 @@ const row5tile4 = document.querySelector(".row5-tile4");
 const row5tile5 = document.querySelector(".row5-tile5");
 // si word1 == green en todos los lados ha ganado 
 
-const lestPlay = () =>{
-    switch (event.keyCode) {
-        case 13:
-            if (letter.length === 5){
-              checkedWords();
-              finalDesition();
-                // Dependiendo donde este escribiendo asi mismo guarda el contenido en la variable indicada 
-            }else{
-                console.log("Te hacen falta letras")
-            }
-            break;
-        case 8:
-            letter.pop()
-            addLetters();
-            break;
-        default:
-        if (letter.length < 5){
-            letter.push(event.key)
-            addLetters();
-        }
-         break;
-    }
-   }
 const checkedWords = () => {
     // Si las letter y secrets coinciden, retornar "Correct"
     // Si no coinciden , si letters existen en la secretWord return "present" 
@@ -145,7 +84,7 @@ const finalDesition = () => {
     if (word1.length < 5){
         saveWord1();
         addWord(); 
-        endOfTheGame(word1);
+    //    endOfTheGame(word1);
     }else if (word2.length < 5 && word1.length == 5){
       saveWord2();
       addWord(); 
@@ -172,6 +111,7 @@ const saveWord1 = () => {
     row1tile4.classList.add(`${colors1[3]}`)
     row1tile5.classList.add(`${colors1[4]}`)
     // https://kervin.blog/convertir-un-array-a-string-en-javascript
+    endOfTheGame(word1)
 }
 const saveWord2 = () => {
     // Guarda la palabra en el nuevo array y limpia el original 
@@ -184,6 +124,7 @@ const saveWord2 = () => {
     row2tile3.classList.add(`${colors2[2]}`)
     row2tile4.classList.add(`${colors2[3]}`)
     row2tile5.classList.add(`${colors2[4]}`)
+    endOfTheGame(word2)
 }
 const saveWord3 = () => {
     // Guarda la palabra en el nuevo array y limpia el original 
@@ -196,6 +137,7 @@ const saveWord3 = () => {
     row3tile3.classList.add(`${colors3[2]}`)
     row3tile4.classList.add(`${colors3[3]}`)
     row3tile5.classList.add(`${colors3[4]}`)
+    endOfTheGame(word3)
 }
 const saveWord4 = () => {
     // Guarda la palabra en el nuevo array y limpia el original 
@@ -208,6 +150,7 @@ const saveWord4 = () => {
     row4tile3.classList.add(`${colors4[2]}`)
     row4tile4.classList.add(`${colors4[3]}`)
     row4tile5.classList.add(`${colors4[4]}`)
+    endOfTheGame(word4)
 }
 const saveWord5 = () => {
     // Guarda la palabra en el nuevo array y limpia el original 
@@ -220,6 +163,7 @@ const saveWord5 = () => {
     row5tile3.classList.add(`${colors5[2]}`)
     row5tile4.classList.add(`${colors5[3]}`)
     row5tile5.classList.add(`${colors5[4]}`)
+    endOfTheGame(word5)
 }
 const addColors = (i) =>{
     if (colors1.length < 5){
@@ -235,7 +179,6 @@ const addColors = (i) =>{
     }
 }
 
-
 const addLetters = () =>{
     // si word1 == 5 y por lo menos hay un amarillo o un gris seguir escribiendo en la proxima row
     /* if (word1 == 5 && colors1.some("hay un gris o un amarillo")){
@@ -244,7 +187,6 @@ const addLetters = () =>{
 // QUiero que empiece añadiendo las etras en la primera columna 
 // SI la primera colomna esta llena me los meta en la segunda
 // Si la primera y la segunda estan llenas los meta en la terera 
-
 if (word1.length < 5 ){
     row1tile1.textContent = letter[0]; 
     row1tile2.textContent = letter[1]; 
@@ -281,13 +223,86 @@ if (word1.length < 5 ){
 const endOfTheGame = (word) => {
     // cuando positions este en todo verde mostrar un resumen de que finaliza el juego
     if (word.join("") == Word){
-        console.log("Ganaste");
+        alerta.classList.remove("none")
         // mostrar una alerta con el resumen 
         // vaciar las variables tanto de words como de colors
     }
 
 }
+const resetGame = () => {
+    row1tile1.classList.remove(`${colors1[0]}`)
+    row1tile2.classList.remove(`${colors1[1]}`)
+    row1tile3.classList.remove(`${colors1[2]}`)
+    row1tile4.classList.remove(`${colors1[3]}`)
+    row1tile5.classList.remove(`${colors1[4]}`)
 
+    row2tile1.classList.remove(`${colors2[0]}`)
+    row2tile2.classList.remove(`${colors2[1]}`)
+    row2tile3.classList.remove(`${colors2[2]}`)
+    row2tile4.classList.remove(`${colors2[3]}`)
+    row2tile5.classList.remove(`${colors2[4]}`)
+
+    row3tile1.classList.remove(`${colors3[0]}`)
+    row3tile2.classList.remove(`${colors3[1]}`)
+    row3tile3.classList.remove(`${colors3[2]}`)
+    row3tile4.classList.remove(`${colors3[3]}`)
+    row3tile5.classList.remove(`${colors3[4]}`)
+
+    row4tile1.classList.remove(`${colors4[0]}`)
+    row4tile2.classList.remove(`${colors4[1]}`)
+    row4tile3.classList.remove(`${colors4[2]}`)
+    row4tile4.classList.remove(`${colors4[3]}`)
+    row4tile5.classList.remove(`${colors4[4]}`)
+
+    row5tile1.classList.remove(`${colors5[0]}`)
+    row5tile2.classList.remove(`${colors5[1]}`)
+    row5tile3.classList.remove(`${colors5[2]}`)
+    row5tile4.classList.remove(`${colors5[3]}`)
+    row5tile5.classList.remove(`${colors5[4]}`)
+
+    row1tile1.textContent = ""; 
+    row1tile2.textContent = ""; 
+    row1tile3.textContent = ""; 
+    row1tile4.textContent = ""; 
+    row1tile5.textContent = ""; 
+    row2tile1.textContent = ""; 
+    row2tile2.textContent = ""; 
+    row2tile3.textContent = ""; 
+    row2tile4.textContent = ""; 
+    row2tile5.textContent = ""; 
+    row3tile1.textContent = ""; 
+    row3tile2.textContent = ""; 
+    row3tile3.textContent = ""; 
+    row3tile4.textContent = ""; 
+    row3tile5.textContent = ""; 
+    row4tile1.textContent = ""; 
+    row4tile2.textContent = ""; 
+    row4tile3.textContent = ""; 
+    row4tile4.textContent = ""; 
+    row4tile5.textContent = ""; 
+    row5tile1.textContent = ""; 
+    row5tile2.textContent = ""; 
+    row5tile3.textContent = ""; 
+    row5tile4.textContent = ""; 
+    row5tile5.textContent = ""; 
+
+    
+    letter.splice(0, letter.length)
+    positions.splice(0, positions.length)
+    word1.splice(0, word1.length)
+    word2.splice(0, word2.length)
+    word3.splice(0, word3.length)
+    word4.splice(0, word4.length)
+    word5.splice(0, word5.length)
+    colors1.splice(0, colors1.length)
+    colors2.splice(0, colors2.length)
+    colors3.splice(0, colors3.length)
+    colors4.splice(0, colors4.length)
+    colors5.splice(0, colors5.length)
+    alerta.classList.add("none")
+
+
+}
 // Add words
 const addWord = () => {
         row1tile1.textContent = word1[0]; 
@@ -323,9 +338,49 @@ const deleteColor = () => {
     row1tile3.classList.remove(`${positions[2]}`)
     row1tile4.classList.remove(`${positions[3]}`)
     row1tile5.classList.remove(`${positions[4]}`)
-}
+};
+
+const lestPlay = (keycode, key) =>{
+    switch (keycode) {
+        case "Enter":
+            if (letter.length === 5){
+              checkedWords();
+              finalDesition();
+                // Dependiendo donde este escribiendo asi mismo guarda el contenido en la variable indicada 
+            }else{
+                console.log("Te hacen falta letras")
+            }
+            break;
+        case "Backspace":
+            letter.pop()
+            addLetters();
+            break;
+        default:
+        if (letter.length < 5){
+            letter.push(key)
+            addLetters();
+        }
+         break;
+    }
+   }
 document.addEventListener("keydown", function(event) {
-    // console.log(event)
-     lestPlay()
- });
+   // console.log(event)
+    lestPlay(event.key, event.key)
+    // esto se esta ejecutando 3 veces*/
+})
+keyBoardLetter.map((letters) => {
+    letters.map((l) => {
+        const p = document.createElement("p");
+        p.classList.add("keyBoardLetter")
+        const Text = document.createTextNode(l)
+        p.appendChild(Text)
+     //   p.setAttribute("onclick","addLetterFromScreen()")
+        virtualBoard.appendChild(p)    
+        p.addEventListener(("click"), () =>{
+      //      letter.push(p.textContent)
+
+      lestPlay(p.textContent, p.textContent)
+        
+        })
+});
 });
